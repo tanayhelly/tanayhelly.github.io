@@ -14,9 +14,9 @@
             --primary-accent: #b58e4e; /* A classic, elegant gold */
             --heading-font: 'Great Vibes', cursive;
             --body-font: 'Cormorant Garamond', serif;
-            --book-width: 90vw;
-            --book-max-width: 500px;
-            --book-aspect-ratio: 1.414; /* A5 paper aspect ratio */
+            --book-width: 95vw;
+            --book-max-width: 650px; /* Increased size for a grander look */
+            --book-aspect-ratio: 1.35; /* Adjusted for better screen fit */
         }
 
         body, html {
@@ -88,24 +88,6 @@
             object-fit: cover;
         }
 
-        .cover-front .open-text {
-            position: absolute;
-            bottom: 20px;
-            color: white;
-            background-color: rgba(0,0,0,0.4);
-            padding: 5px 15px;
-            border-radius: 15px;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            animation: pulse 2s infinite ease-in-out;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
         .cover-back {
             background-color: #fdfaf5;
             transform: rotateY(180deg);
@@ -124,9 +106,6 @@
             flex-direction: column;
             justify-content: center;
             box-sizing: border-box;
-            /* IMPORTANT: You need to host the new background image (Wedding_info_template.jpg) 
-                on a service like Imgur and paste the direct link here.
-            */
             background-image: url('Wedding_info_background.png');
             background-size: cover;
             background-position: center;
@@ -192,11 +171,11 @@
 
         /* Responsive */
         @media (max-width: 600px) {
-            h1 { font-size: 2rem; }
-            h2 { font-size: 0.9rem; }
-            h3 { font-size: 0.8rem; }
-            .invitation-content p { font-size: 0.8rem; }
-            .text-area { padding: 30% 12% 35% 12%; }
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 1rem; }
+            h3 { font-size: 0.9rem; }
+            .invitation-content p { font-size: 0.9rem; }
+            .text-area { padding: 30% 10% 35% 10%; }
         }
 
     </style>
@@ -271,3 +250,4 @@
 
 </body>
 </html>
+
