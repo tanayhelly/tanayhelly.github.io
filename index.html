@@ -1,153 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wedding Invitation</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --background-color: #f5eadd; /* A soft, warm ivory */
-            --text-color: #8c6d3a; /* A dark gold */
-            --primary-accent: #b58e4e; /* A classic, elegant gold */
-            --heading-font: 'Great Vibes', cursive;
-            --body-font: 'Cormorant Garamond', serif;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wedding Invitation</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  body, html {
+    margin:0; padding:0;
+    display:flex; justify-content:center; align-items:center;
+    height:100vh; background:#f5eadd; font-family:'Lato',sans-serif;
+  }
+  .book-container {
+    width:90vw; max-width:500px; aspect-ratio:1/1.414;
+    position:relative; overflow:hidden; border-radius:12px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.2);
+  }
+  .page {
+    position:absolute; top:0; left:0; width:100%; height:100%;
+    background:#fdfaf5; color:#4a2c2a; text-align:center;
+    padding:20px; box-sizing:border-box;
+    display:flex; flex-direction:column; justify-content:center; align-items:center;
+    transition: opacity 1s ease-in-out;
+    opacity:0;
+  }
+  .page.active { opacity:1; }
 
-        body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            background-color: var(--background-color);
-            font-family: var(--body-font);
-            scroll-behavior: smooth;
-        }
+  h1,h2,h3 { font-family:'Great Vibes',cursive; color:#c48f65; margin:0; }
+  h1{ font-size:2.8rem; } h2{ font-size:2.2rem; margin-top:15px; } h3{ font-size:1.2rem; letter-spacing:1px; }
+  p{ font-size:0.9rem; line-height:1.5; margin:10px 0; }
+  .rsvp-button{ display:inline-block; background:#c48f65; color:#fff; padding:12px 30px; border-radius:50px; text-decoration:none; font-weight:700; margin-top:20px; }
 
-        .page-container {
-            max-width: 800px;
-            margin: 0 auto;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-            background-color: #fff;
-        }
+  .couple-images { display:flex; flex-direction:column; gap:15px; align-items:center; }
+  .couple-images img { display:none; width:90%; max-width:350px; border-radius:12px; box-shadow:0 5px 15px rgba(0,0,0,0.2); }
+  .couple-images img.active { display:block; }
 
-        .hero-image {
-            width: 100%;
-            opacity: 0;
-            animation: fadeIn 2s 0.5s ease-out forwards;
-        }
-
-        .hero-image img {
-            width: 100%;
-            display: block;
-        }
-
-        .invitation-section {
-            color: var(--text-color);
-            text-align: center;
-            box-sizing: border-box;
-            background-image: url('Wedding_info_background.png'); /* Ornate background */
-            background-size: cover;
-            background-position: center;
-            padding: 5% 10%; /* Responsive padding */
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInSlideUp 1.5s 1s ease-out forwards;
-        }
-
-        h1, h2, h3 {
-             font-family: var(--heading-font);
-             color: var(--text-color);
-             font-weight: 400;
-             margin: 0;
-        }
-
-        h1 { font-size: 4rem; margin-bottom: 10px;}
-        h2 { font-family: var(--body-font); font-size: 1.2rem; font-weight: 600; letter-spacing: 1px; margin-top: 20px; }
-        h3 { font-family: var(--body-font); font-size: 1.1rem; }
-
-        .invitation-section p {
-            font-size: 1.1rem;
-            line-height: 1.7;
-            margin: 15px 0;
-        }
-
-        .details {
-            margin-top: 25px;
-        }
-        
-        .details p {
-            margin: 8px 0;
-        }
-
-        .rsvp-button {
-            display: inline-block;
-            background-color: var(--primary-accent);
-            color: #FFFFFF;
-            padding: 12px 30px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-size: 1rem;
-            font-weight: 600;
-            letter-spacing: 1px;
-            margin-top: 25px;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-
-        .rsvp-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.25);
-        }
-
-        @keyframes fadeIn {
-            to { opacity: 1; }
-        }
-        
-        @keyframes fadeInSlideUp {
-            to { 
-                opacity: 1; 
-                transform: translateY(0);
-            }
-        }
-
-        /* Responsive */
-        @media (max-width: 600px) {
-            h1 { font-size: 3rem; }
-            h2 { font-size: 1rem; }
-            h3 { font-size: 1rem; }
-            .invitation-section p { font-size: 1rem; }
-            .invitation-section { padding: 10% 8%; }
-        }
-
-    </style>
+  @media(max-width:600px){ h1{font-size:2.2rem;} h2{font-size:1.8rem;} p{font-size:0.8rem;} }
+</style>
 </head>
 <body>
 
-    <div class="page-container">
-        <header class="hero-image">
-            <!-- This image is the Ganesha cover -->
-            <img src="Wedding_Ganpati.jpg" alt="Wedding Invitation Auspicious Start">
-        </header>
+<div class="book-container">
+  <!-- Page 0: Cover -->
+  <div class="page active" id="page0">
+    <img src="https://i.imgur.com/BGhB5zq.jpeg" alt="Ganesha Cover" style="width:100%; height:100%; object-fit:cover; border-radius:12px;">
+  </div>
 
-        <main class="invitation-section">
-            <h3>Together with their families</h3>
-            <h1>Tanay & Helly</h1>
-            <h3>request the honor of your presence<br>at their wedding celebration</h3>
-            
-            <div class="details">
-                <h2>TUESDAY, 20 JANUARY 2026 | TBD</h2>
-                <p>
-                    <strong>The Grand Palace Hall</strong><br>
-                    123 Celebration Ave, Queens, NY
-                </p>
-            </div>
-
-            <a href="#" class="rsvp-button" target="_blank">RSVP BY OCT 15</a>
-        </main>
+  <!-- Page 1: Carousel -->
+  <div class="page" id="page1">
+    <h2>Our Journey</h2>
+    <p>A glimpse of the love we share...</p>
+    <div class="couple-images" id="carousel">
+      <img src="https://media.istockphoto.com/id/1334542509/photo/elopement-wedding.jpg?s=612x612&w=0&k=20&c=NMhdtBEyfTXtRH_XxYAh5kphkeewjl2rVDGQuLIfwTs=" alt="Couple Image 1">
+<img src="https://images.stockcake.com/public/0/c/6/0c66db9c-7066-496b-9c1b-9daa65d7e01f_large/silhouette-love-moment-stockcake.jpg" alt="Couple Image 2">
+<img src="https://images.unsplash.com/photo-1690202407412-26b8e18a2a64?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Y291cGxlJTIwd2VkZGluZ3xlbnwwfHwwfHx8MA%3D%3D" alt="Couple Image 3">
     </div>
- 
+  </div>
+
+  <!-- Page 2: Event / RSVP -->
+  <div class="page" id="page2">
+    <h3>Together with their families</h3>
+    <h1>Tanay & Helly</h1>
+    <h3>request the honor of your presence<br>at their wedding celebration</h3>
+    <div>
+      <h2>Ceremony & Reception</h2>
+      <p>Saturday, the Twenty-Third of November<br>Two Thousand Twenty-Four<br>at four o'clock in the afternoon</p>
+      <p><strong>The Grand Palace Hall</strong><br>123 Celebration Ave, Queens, NY</p>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSfxKkdBT6ffjHDvYQl9XMrPiyRvpzOi5SrmpzPubPSi-tJ6Yw/viewform?embedded=true" class="rsvp-button" target="_blank">Kindly RSVP by Dec 31th</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  const pages = [
+    document.getElementById('page0'),
+    document.getElementById('page1'),
+    document.getElementById('page2')
+  ];
+  let currentPage = 0;
+
+  // Carousel setup
+  const carouselImages = document.querySelectorAll("#carousel img");
+  let carouselIndex = 0;
+  let carouselInterval;
+
+  function startCarousel(){
+    carouselImages.forEach((img,i)=>img.classList.remove('active'));
+    carouselImages[0].classList.add('active'); // first image
+    carouselIndex = 0;
+
+    clearInterval(carouselInterval);
+    carouselInterval = setInterval(()=>{
+      carouselImages[carouselIndex].classList.remove('active');
+      carouselIndex++;
+      if(carouselIndex >= carouselImages.length) carouselIndex = 0;
+      carouselImages[carouselIndex].classList.add('active');
+    },3000);
+  }
+
+  function stopCarousel(){
+    clearInterval(carouselInterval);
+  }
+
+  // Auto-flip logic with variable delay
+  function getFlipDelay(index){
+    if(index === 1) return carouselImages.length * 3000; // carousel page: 3s per image
+    return 5000; // other pages
+  }
+
+  let flipTimeout;
+  function showPage(index){
+    pages.forEach((p,i)=>p.classList.toggle('active', i===index));
+    currentPage = index;
+
+    if(index === 1) startCarousel();
+    else stopCarousel();
+
+    clearTimeout(flipTimeout);
+    if(currentPage < pages.length - 1){
+      flipTimeout = setTimeout(()=> showPage(currentPage + 1), getFlipDelay(currentPage));
+    }
+  }
+
+  // Start with first page
+  showPage(0);
+</script>
+
 </body>
 </html>
+
+
+
+
 
