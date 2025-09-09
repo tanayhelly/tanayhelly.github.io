@@ -1,2 +1,2 @@
 # tanayhelly.github.io
-Wedding Invitation for Tanay &amp; Helly"
+Wedding Invitation for Tanay &amp; Helly
