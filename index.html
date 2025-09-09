@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Invitation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --background-color: #f5eadd; /* A soft, warm ivory */
+            --text-color: #8c6d3a; /* A dark gold */
+            --primary-accent: #b58e4e; /* A classic, elegant gold */
+            --heading-font: 'Great Vibes', cursive;
+            --body-font: 'Cormorant Garamond', serif;
+            --book-width: 90vw;
+            --book-max-width: 500px;
+            --book-aspect-ratio: 1.414; /* A5 paper aspect ratio */
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: var(--background-color);
+            font-family: var(--body-font);
+        }
+
+        .book-container {
+            width: var(--book-width);
+            max-width: var(--book-max-width);
+            height: calc(var(--book-width) * var(--book-aspect-ratio));
+            max-height: calc(var(--book-max-width) * var(--book-aspect-ratio));
+            perspective: 2000px;
+        }
+
+        .book {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 1s ease-in-out;
+        }
+
+        .cover {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+            transform-origin: left;
+            transition: transform 1.5s ease-in-out;
+            transform-style: preserve-3d;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            opacity: 0;
+            animation: fadeIn 2s ease-out forwards;
+        }
+        
+        /* Add this class with JS to open the book */
+        .book.open .cover {
+            transform: rotateY(-180deg);
+        }
+
+        .cover-front, .cover-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .cover-front {
+            background-color: var(--background-color);
+        }
+        
+        .cover-front img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cover-front .open-text {
+            position: absolute;
+            bottom: 20px;
+            color: white;
+            background-color: rgba(0,0,0,0.4);
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .cover-back {
+            background-color: #fdfaf5;
+            transform: rotateY(180deg);
+        }
+
+        .invitation-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            color: var(--text-color);
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-sizing: border-box;
+            /* IMPORTANT: You need to host the new background image (Wedding_info_template.jpg) 
+                on a service like Imgur and paste the direct link here.
+            */
+            background-image: url('Wedding_info_background.png');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .text-area {
+            padding: 30% 18% 35% 18%; /* Adjusted padding to fit text inside the arch */
+            box-sizing: border-box;
+            height: 100%;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        h1, h2, h3 {
+             font-family: var(--heading-font);
+             color: var(--text-color);
+             font-weight: 400;
+             margin: 0;
+        }
+
+        h1 { font-size: 3rem; margin-bottom: 5px;}
+        h2 { font-family: var(--body-font); font-size: 1.1rem; font-weight: 600; letter-spacing: 1px; }
+        h3 { font-family: var(--body-font); font-size: 1rem; }
+
+        .invitation-content p {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin: 10px 0;
+        }
+
+        .details {
+            margin-top: 15px;
+        }
+        
+        .details p {
+            margin: 5px 0;
+        }
+
+        .rsvp-button {
+            display: inline-block;
+            background-color: var(--primary-accent);
+            color: #FFFFFF;
+            padding: 10px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin-top: 15px;
+            transition: transform 0.2s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .rsvp-button:hover {
+            transform: scale(1.05);
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            h1 { font-size: 2rem; }
+            h2 { font-size: 0.9rem; }
+            h3 { font-size: 0.8rem; }
+            .invitation-content p { font-size: 0.8rem; }
+            .text-area { padding: 30% 12% 35% 12%; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="book-container">
+        <div class="book" id="book">
+            <!-- INVITATION CONTENT (BACK PAGE) -->
+            <div class="invitation-content">
+                <div class="text-area">
+                    <h3>Together with their families</h3>
+                    <h1>Tanay & Helly</h1>
+                    <h3>request the honor of your presence<br>at their wedding celebration</h3>
+                    
+                    <div class="details">
+                        <h2>TUESDAY, 20 JANUARY 2026 | TBD</h2>
+                        <p>
+                            <strong>The Grand Palace Hall</strong><br>
+                            123 Celebration Ave, Queens, NY
+                        </p>
+                    </div>
+
+                    <a href="#" class="rsvp-button" target="_blank">RSVP BY OCT 15</a>
+                </div>
+            </div>
+
+            <!-- COVER (FRONT PAGE) -->
+            <div class="cover" id="cover">
+                <div class="cover-front">
+                    <!-- This image is the Ganesha cover -->
+                    <img src="Wedding_Ganpati.jpg" alt="Wedding Invitation Cover">
+                </div>
+                <div class="cover-back"></div>
+            </div>
+        </div>
+    </div>
+ 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const book = document.getElementById('book');
+            const cover = document.getElementById('cover');
+
+            // Function to open the book, prevents re-triggering
+            const openBook = () => {
+                if (!book.classList.contains('open')) {
+                    book.classList.add('open');
+                }
+            };
+
+            // Automatically open the book after a delay
+            const autoOpenTimer = setTimeout(openBook, 3000);
+
+            // Also allow the user to click to open it sooner
+            cover.addEventListener('click', () => {
+                clearTimeout(autoOpenTimer); // Stop the timer if clicked manually
+                openBook();
+            });
+
+            // Listen for the end of the flip animation on the cover
+            cover.addEventListener('transitionend', (e) => {
+                // Check if the transition that ended was the 'transform'
+                if (e.propertyName === 'transform') {
+                    // If the book is open, hide the cover completely
+                    if (book.classList.contains('open')) {
+                        cover.style.display = 'none';
+                    }
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
