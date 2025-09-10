@@ -1,135 +1,300 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wedding Invitation</title>
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-<style>
-  body, html {
-    margin:0; padding:0;
-    display:flex; justify-content:center; align-items:center;
-    height:100vh; background:#f5eadd; font-family:'Lato',sans-serif;
-  }
-  .book-container {
-    width:90vw; max-width:500px; aspect-ratio:1/1.414;
-    position:relative; overflow:hidden; border-radius:12px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.2);
-  }
-  .page {
-    position:absolute; top:0; left:0; width:100%; height:100%;
-    background:#fdfaf5; color:#4a2c2a; text-align:center;
-    padding:20px; box-sizing:border-box;
-    display:flex; flex-direction:column; justify-content:center; align-items:center;
-    transition: opacity 1s ease-in-out;
-    opacity:0;
-  }
-  .page.active { opacity:1; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tanay & Helly</title>
+    
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts for elegant typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS for theme and animations -->
+    <style>
+        :root {
+            --background: #FFFFFF;
+            --text-dark: #333333;
+            --text-light: #666666;
+            --accent: #BFA181; /* A soft, elegant gold */
+        }
 
-  h1,h2,h3 { font-family:'Great Vibes',cursive; color:#c48f65; margin:0; }
-  h1{ font-size:2.8rem; } h2{ font-size:2.2rem; margin-top:15px; } h3{ font-size:1.2rem; letter-spacing:1px; }
-  p{ font-size:0.9rem; line-height:1.5; margin:10px 0; }
-  .rsvp-button{ display:inline-block; background:#c48f65; color:#fff; padding:12px 30px; border-radius:50px; text-decoration:none; font-weight:700; margin-top:20px; }
+        /* Configure Tailwind to use our CSS variables and fonts */
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'playfair': ['"Playfair Display"', 'serif'],
+                        'lato': ['"Lato"', 'sans-serif'],
+                    },
+                    colors: {
+                        'brand-dark': 'var(--text-dark)',
+                        'brand-light': 'var(--text-light)',
+                        'brand-accent': 'var(--accent)',
+                    }
+                }
+            }
+        }
 
-  .couple-images { display:flex; flex-direction:column; gap:15px; align-items:center; }
-  .couple-images img { display:none; width:90%; max-width:350px; border-radius:12px; box-shadow:0 5px 15px rgba(0,0,0,0.2); }
-  .couple-images img.active { display:block; }
+        /* Basic styles */
+        body {
+            font-family: 'lato', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--background);
+        }
 
-  @media(max-width:600px){ h1{font-size:2.2rem;} h2{font-size:1.8rem;} p{font-size:0.8rem;} }
-</style>
+        h1, h2, h3, h4 {
+            font-family: 'playfair', serif;
+        }
+        
+        /* Style for the sticky navigation */
+        .nav-sticky {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            z-index: 50;
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* Active link style for navigation */
+        .nav-link-active {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+
+        /* Section padding */
+        .section-padding {
+            padding-top: 5rem;
+            padding-bottom: 5rem;
+        }
+
+        /* Slideshow styles */
+        .slide {
+            display: none;
+        }
+        .fade {
+            /* Updated animation for a more elegant transition */
+            animation: elegant-fade 1.5s ease-in-out;
+        }
+        @keyframes elegant-fade {
+            from {
+                opacity: 0.5;
+                transform: scale(1.02);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
 </head>
-<body>
+<body class="antialiased">
 
-<div class="book-container">
-  <!-- Page 0: Cover -->
-  <div class="page active" id="page0">
-    <img src="https://i.imgur.com/BGhB5zq.jpeg" alt="Ganesha Cover" style="width:100%; height:100%; object-fit:cover; border-radius:12px;">
-  </div>
+    <!-- Header Section (Hero) -->
+    <header id="home" class="h-screen min-h-[600px] bg-cover bg-center flex items-center justify-center text-white text-center p-4" style="background-image: url('title_img.jpg');">
+        <div class="absolute inset-0 bg-black/40"></div>
+        <div class="relative z-10">
+            <h1 class="text-5xl md:text-8xl font-playfair tracking-tight">Tanay & Helly</h1>
+            <p class="mt-4 text-lg md:text-xl font-lato uppercase tracking-[0.2em]">Are getting married</p>
+            <p class="mt-8 text-2xl md:text-3xl font-playfair">January 20, 2026</p>
+        </div>
+    </header>
 
-  <!-- Page 1: Carousel -->
-  <div class="page" id="page1">
-    <h2>Our Journey</h2>
-    <p>A glimpse of the love we share...</p>
-    <div class="couple-images" id="carousel">
-      <img src="https://media.istockphoto.com/id/1334542509/photo/elopement-wedding.jpg?s=612x612&w=0&k=20&c=NMhdtBEyfTXtRH_XxYAh5kphkeewjl2rVDGQuLIfwTs=" alt="Couple Image 1">
-<img src="https://images.stockcake.com/public/0/c/6/0c66db9c-7066-496b-9c1b-9daa65d7e01f_large/silhouette-love-moment-stockcake.jpg" alt="Couple Image 2">
-<img src="https://images.unsplash.com/photo-1690202407412-26b8e18a2a64?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Y291cGxlJTIwd2VkZGluZ3xlbnwwfHwwfHx8MA%3D%3D" alt="Couple Image 3">
-    </div>
-  </div>
+    <!-- Navigation Bar -->
+    <nav id="navbar" class="w-full py-4 transition-all duration-300">
+        <div class="container mx-auto flex justify-center items-center gap-6 md:gap-10">
+            <a href="#our-story" class="nav-link text-brand-dark hover:text-brand-accent uppercase tracking-wider text-sm">Our Story</a>
+            <a href="#the-wedding" class="nav-link text-brand-dark hover:text-brand-accent uppercase tracking-wider text-sm">The Wedding</a>
+            <a href="#rsvp" class="nav-link text-brand-dark hover:text-brand-accent uppercase tracking-wider text-sm">RSVP</a>
+        </div>
+    </nav>
+    
+    <!-- Main Content -->
+    <main>
+        <!-- Our Story Section -->
+        <section id="our-story" class="section-padding bg-gray-50">
+            <div class="container mx-auto px-4">
+                <h2 class="text-4xl md:text-5xl text-center mb-12">Our Story</h2>
+                <div class="grid md:grid-cols-2 gap-12 items-center max-w-5xl mx-auto">
+                    <!-- Image Slideshow -->
+                    <div>
+                        <div class="relative rounded-lg shadow-lg overflow-hidden">
+                            <!-- Slides -->
+                            <div class="slide fade">
+                                <img src="img1.JPEG" alt="Our First Date" class="w-full h-auto">
+                            </div>
+                            <div class="slide fade">
+                                <img src="img2.jpg" alt="The Proposal" class="w-full h-auto">
+                            </div>
+                            <div class="slide fade">
+                                <img src="img3.JPG" alt="Engagement Photos" class="w-full h-auto">
+                            </div>
+                            <div class="slide fade">
+                                <img src="img4.jpg" alt="Engagement Photos" class="w-full h-auto">
+                            </div>
 
-  <!-- Page 2: Event / RSVP -->
-  <div class="page" id="page2">
-    <h3>Together with their families</h3>
-    <h1>Tanay & Helly</h1>
-    <h3>request the honor of your presence<br>at their wedding celebration</h3>
-    <div>
-      <h2>Ceremony & Reception</h2>
-      <p>Saturday, the Twenty-Third of November<br>Two Thousand Twenty-Four<br>at four o'clock in the afternoon</p>
-      <p><strong>The Grand Palace Hall</strong><br>123 Celebration Ave, Queens, NY</p>
-      <a href="https://docs.google.com/forms/d/e/1FAIpQLSfxKkdBT6ffjHDvYQl9XMrPiyRvpzOi5SrmpzPubPSi-tJ6Yw/viewform?embedded=true" class="rsvp-button" target="_blank">Kindly RSVP by Dec 31th</a>
-    </div>
-  </div>
-</div>
+                        </div>
+                        <!-- Dots -->
+                        <div class="text-center mt-4">
+                            <span class="dot inline-block w-3 h-3 bg-gray-300 rounded-full cursor-pointer mx-1" onclick="currentSlide(1)"></span>
+                            <span class="dot inline-block w-3 h-3 bg-gray-300 rounded-full cursor-pointer mx-1" onclick="currentSlide(2)"></span>
+                            <span class="dot inline-block w-3 h-3 bg-gray-300 rounded-full cursor-pointer mx-1" onclick="currentSlide(3)"></span>
+                            <span class="dot inline-block w-3 h-3 bg-gray-300 rounded-full cursor-pointer mx-1" onclick="currentSlide(4)"></span>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-3xl mb-4">How We Met</h3>
+                        <p class="text-brand-light leading-relaxed">
+                            Our journey began unexpectedly, a chance meeting that blossomed into a beautiful friendship. We discovered a shared love for late-night talks, spontaneous adventures, and dreaming about the future. Over time, that friendship grew into a deep and abiding love. We are so excited to start our next chapter together as husband and wife, and we feel incredibly blessed to share this moment with you.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-<script>
-  const pages = [
-    document.getElementById('page0'),
-    document.getElementById('page1'),
-    document.getElementById('page2')
-  ];
-  let currentPage = 0;
+        <!-- The Wedding Section -->
+        <section id="the-wedding" class="section-padding">
+            <div class="container mx-auto px-4 text-center">
+                <h2 class="text-4xl md:text-5xl mb-12">The Wedding</h2>
+                <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto text-center">
+                    <!-- Sangeet -->
+                    <div class="p-6">
+                         <h3 class="text-3xl">Sangeet</h3>
+                        <p class="mt-4 text-brand-light">Sunday, 18th January 2026<br>7:00 PM onwards</p>
+                        <p class="mt-2 font-semibold">The Grand Ballroom, Vadodara</p>
+                    </div>
+                    <!-- Wedding Ceremony -->
+                    <div class="p-6 border-x border-gray-200">
+                        <h3 class="text-3xl">Wedding</h3>
+                        <p class="mt-4 text-brand-light">Tuesday, 20th January 2026<br>6:00 PM onwards</p>
+                        <p class="mt-2 font-semibold">Vadodara</p>
+                    </div>
+                    <!-- Reception -->
+                    <div class="p-6">
+                        <h3 class="text-3xl">Reception</h3>
+                        <p class="mt-4 text-brand-light">Thursday, 22nd January 2026<br>8:00 PM onwards</p>
+                        <p class="mt-2 font-semibold">Bardoli</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-  // Carousel setup
-  const carouselImages = document.querySelectorAll("#carousel img");
-  let carouselIndex = 0;
-  let carouselInterval;
+        <!-- RSVP Section -->
+        <section id="rsvp" class="section-padding bg-gray-50">
+            <div class="container mx-auto px-4 max-w-3xl text-center">
+                <h2 class="text-4xl md:text-5xl mb-6">RSVP</h2>
+                <p class="text-brand-light leading-relaxed mb-8">
+                    Your presence at our wedding is the greatest gift of all. Please RSVP by October 1st, 2025.
+                </p>
+                <div class="rounded-lg overflow-hidden border border-gray-200 shadow-lg">
+                    <iframe 
+                        src="https://docs.google.com/forms/d/e/1FAIpQLSfxKkdBT6ffjHDvYQl9XMrPiyRvpzOi5SrmpzPubPSi-tJ6Yw/viewform?embedded=true" target="_blank"" 
+                        width="100%" 
+                        height="800" 
+                        frameborder="0" 
+                        marginheight="0" 
+                        marginwidth="0">
+                        Loading…
+                    </iframe>
+                </div>
+            </div>
+        </section>
 
-  function startCarousel(){
-    carouselImages.forEach((img,i)=>img.classList.remove('active'));
-    carouselImages[0].classList.add('active'); // first image
-    carouselIndex = 0;
+    </main>
+    
+    <!-- Footer -->
+    <footer class="text-center py-8">
+        <p class="text-brand-light">&copy; 2026 Tanay & Helly</p>
+    </footer>
 
-    clearInterval(carouselInterval);
-    carouselInterval = setInterval(()=>{
-      carouselImages[carouselIndex].classList.remove('active');
-      carouselIndex++;
-      if(carouselIndex >= carouselImages.length) carouselIndex = 0;
-      carouselImages[carouselIndex].classList.add('active');
-    },3000);
-  }
+    <!-- JavaScript for Page Logic -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // --- Sticky Nav and Scrollspy ---
+            const navbar = document.getElementById('navbar');
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const navHeight = navbar.offsetHeight;
 
-  function stopCarousel(){
-    clearInterval(carouselInterval);
-  }
+            const makeNavSticky = () => {
+                if (window.scrollY > window.innerHeight - navHeight) {
+                    navbar.classList.add('nav-sticky');
+                } else {
+                    navbar.classList.remove('nav-sticky');
+                }
+            };
+            
+            const activateNavLink = () => {
+                let currentSection = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= sectionTop - navHeight - 100) {
+                        currentSection = section.getAttribute('id');
+                    }
+                });
 
-  // Auto-flip logic with variable delay
-  function getFlipDelay(index){
-    if(index === 1) return carouselImages.length * 3000; // carousel page: 3s per image
-    return 5000; // other pages
-  }
+                navLinks.forEach(link => {
+                    link.classList.remove('nav-link-active');
+                    if (link.getAttribute('href').substring(1) === currentSection) {
+                        link.classList.add('nav-link-active');
+                    }
+                });
+            };
 
-  let flipTimeout;
-  function showPage(index){
-    pages.forEach((p,i)=>p.classList.toggle('active', i===index));
-    currentPage = index;
+            window.addEventListener('scroll', () => {
+                makeNavSticky();
+                activateNavLink();
+            });
 
-    if(index === 1) startCarousel();
-    else stopCarousel();
+            // --- Slideshow Logic ---
+            // Initialize the slideshow
+            showSlides(slideIndex);
+        });
 
-    clearTimeout(flipTimeout);
-    if(currentPage < pages.length - 1){
-      flipTimeout = setTimeout(()=> showPage(currentPage + 1), getFlipDelay(currentPage));
-    }
-  }
+        let slideIndex = 1;
+        let slideInterval; // Variable to hold the timer
 
-  // Start with first page
-  showPage(0);
-</script>
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
 
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("slide");
+            let dots = document.getElementsByClassName("dot");
+            
+            // Clear the existing timer
+            clearInterval(slideInterval);
+
+            if (n > slides.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = slides.length }
+            
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" bg-brand-accent", " bg-gray-300");
+            }
+
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className = dots[slideIndex - 1].className.replace(" bg-gray-300", " bg-brand-accent");
+
+            // Set a new timer to auto-advance slides every 3 seconds
+            slideInterval = setInterval(() => plusSlides(1), 3000);
+        }
+    </script>
 </body>
 </html>
-
-
 
 
 
