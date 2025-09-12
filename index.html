@@ -81,6 +81,13 @@
             /* Updated animation for a more elegant transition */
             animation: elegant-fade 1.5s ease-in-out;
         }
+        /* Custom class for the decorative lines to ensure they always appear */
+        .decorative-line {
+            display: block;
+            width: 6rem; /* Equivalent to w-24 */
+            height: 1px;
+            background-color: var(--accent);
+        }
         @keyframes elegant-fade {
             from {
                 opacity: 0.5;
@@ -161,22 +168,26 @@
         <section id="the-wedding" class="section-padding">
             <div class="container mx-auto px-4 text-center">
                 <img src="Ganpati.png" alt="Ganpati" align="center" class="mx-auto mb-8 w-44 h-54">
-                <h2 class="text-4xl md:text-5xl mb-12">The Wedding</h2>
-                <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto text-center">
+                <div class="flex justify-center items-center gap-6 mb-12">
+                    <span class="decorative-line"></span>
+                    <h2 class="text-4xl md:text-5xl">The Wedding</h2>
+                    <span class="decorative-line"></span>
+                </div>
+                <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto text-center">
                     <!-- Sangeet -->
-                    <div class="p-6">
+                    <!-- <div class="p-6">
                          <h3 class="text-3xl">Ganesh Sthapana / Pithi</h3>
                         <p class="mt-4 text-brand-light">Monday, 19th January 2026<br>5:00 PM onwards</p>
                         <p class="mt-2 font-semibold">Bardoli</p>
-                    </div>
+                    </div> -->
                     <!-- Wedding Ceremony -->
-                    <div class="p-6 border-x border-gray-200">
+                    <div class="p-6">
                         <h3 class="text-3xl">Wedding</h3>
-                        <p class="mt-4 text-brand-light">Tuesday, 20th January 2026<br>6:00 PM onwards</p>
+                        <p class="mt-4 text-brand-light">Tuesday, 20th January 2026<br></p>
                         <p class="mt-2 font-semibold">Palkhi banquets & lawns | Banquet hall in Vadodara</p>
                     </div>
                     <!-- Reception -->
-                    <div class="p-6">
+                    <div class="p-6 md:border-l border-gray-20">
                         <h3 class="text-3xl">Reception</h3>
                         <p class="mt-4 text-brand-light">Thursday, 22nd January 2026<br>6:00 PM onwards</p>
                         <p class="mt-2 font-semibold">Bardoli</p>
