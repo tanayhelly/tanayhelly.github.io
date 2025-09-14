@@ -174,7 +174,7 @@
                     <h2 class="text-5xl md:text-6xl">The Wedding</h2>
                     <span class="decorative-line"></span>
                 </div>
-                <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto text-center">
+                <div id="events-grid" class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto text-center">
                     <!-- Sangeet -->
                     <!-- <div class="p-6">
                          <h3 class="text-3xl">Ganesh Sthapana / Pithi</h3>
@@ -182,13 +182,13 @@
                         <p class="mt-2 font-semibold">Bardoli</p>
                     </div> -->
                     <!-- Wedding Ceremony -->
-                    <div class="p-6 pb-8 border-b border-gray-200 md:pb-6 md:border-b-0">
+                    <div id="wedding-ceremony" class="p-6 pb-8 border-b border-gray-200 md:pb-6 md:border-b-0">
                         <h3 class="text-3xl">Wedding</h3>
                         <p class="mt-4 text-brand-light">Tuesday, 20th January 2026<br></p>
                         <p class="mt-2 font-semibold">Palkhi banquets & lawns | Banquet hall in Vadodara</p>
                     </div>
                     <!-- Reception -->
-                    <div class="p-6 pt-8 md:pt-6 md:border-l border-gray-200">
+                    <div id="reception-ceremony" class="p-6 pt-8 md:pt-6 md:border-l border-gray-200">
                         <h3 class="text-3xl">Reception</h3>
                         <p class="mt-4 text-brand-light">Thursday, 22nd January 2026<br>6:00 PM</p>
                         <p class="mt-2 font-semibold">Bardoli</p>
@@ -261,6 +261,7 @@
                 </p>
                 <div class="rounded-lg overflow-hidden border border-gray-200 shadow-lg">
                     <iframe 
+                        id="rsvp-form"
                         src="https://docs.google.com/forms/d/e/1FAIpQLSfxKkdBT6ffjHDvYQl9XMrPiyRvpzOi5SrmpzPubPSi-tJ6Yw/viewform?embedded=true" target="_blank"" 
                         width="100%" 
                         height="800" 
@@ -322,6 +323,38 @@
             // --- Slideshow Logic ---
             // Initialize the slideshow
             showSlides(slideIndex);
+
+            // --- New Logic for Dynamic Events & RSVP ---
+            const urlParams = new URLSearchParams(window.location.search);
+            const eventType = urlParams.get('event');
+
+            // Check if the URL has "?event=reception"
+            if (eventType === 'reception') {
+                // 1. Hide the Wedding Ceremony details
+                const weddingCeremony = document.getElementById('wedding-ceremony');
+                if (weddingCeremony) {
+                    weddingCeremony.style.display = 'none';
+                }
+
+                // 2. Adjust grid and styling for the remaining Reception details
+                const eventsGrid = document.getElementById('events-grid');
+                const receptionCeremony = document.getElementById('reception-ceremony');
+                if (eventsGrid && receptionCeremony) {
+                    eventsGrid.classList.remove('md:grid-cols-2');
+                    eventsGrid.classList.add('md:grid-cols-1');
+                    
+                    receptionCeremony.classList.remove('md:border-l', 'pt-8', 'md:pt-6');
+                    receptionCeremony.classList.add('p-6');
+                }
+
+                // 3. Change the RSVP form to the reception-only version
+                const rsvpForm = document.getElementById('rsvp-form');
+                if (rsvpForm) {
+                    // IMPORTANT: Replace this placeholder with the link to your RECEPTION-ONLY Google Form
+                    rsvpForm.src = "https://docs.google.com/forms/d/e/1FAIpQLSePiGasYVW69RVDoE2nRwDkV8Mrcxrv3oznyxkvTl05fwrNNQ/viewform?usp=sharing&ouid=108459116144757733314";
+                }
+            }
+            // If no 'event' parameter is found, the page loads normally, showing both events and the default RSVP form.
         });
 
         let slideIndex = 1;
